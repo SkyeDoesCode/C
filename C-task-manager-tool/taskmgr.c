@@ -83,9 +83,14 @@ int main(void) {
 
     while (1) {
         printf("\n1. Add Task\n2. View Tasks\n3. Complete Task\n4. Exit\nEnter your choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1) {
+            while (getchar() != '\n');  // Discards invalid input
+            printf("Invalid choice. Please enter a valid integer (1-4).\n");
+            continue; // Skip the rest of the loop and prompt for input again
+        }
 
         switch (choice) {
+            
             case 1:
                 addTask(tasks, &taskCount);
                 break;
@@ -99,7 +104,8 @@ int main(void) {
                 printf("Exiting the program.\n");
                 return 0; //stops the while loop
             default:  
-                printf("Invalid choice. Please try again.\n");  
+                printf("Invalid choice. Please try again.\n");
+                break;
         }
     }
 }
